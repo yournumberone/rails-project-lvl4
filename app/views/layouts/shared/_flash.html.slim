@@ -1,0 +1,6 @@
+- if flash.any?
+  .container.my-2
+    - flash.each do |type, msg|
+      div class="alert shadow alert-dismissible #{flash_class(type.to_s)}"
+        = msg
+        button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'

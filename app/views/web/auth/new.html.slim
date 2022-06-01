@@ -1,0 +1,12 @@
+.d-flex.justify-content-center.mt-5
+  .col-4
+    .card.shadow
+      .card-body
+        .card-title
+          h1
+            = t('sign_in')
+        .card-text.mt-5.mb-3
+          = link_to auth_request_path('github'), method: :post, class: 'btn btn-outline-dark w-100 shadow-sm' do
+            .fa-brands.fa-github-alt.fa-lg.me-2
+            span
+              = t('sign_in_with_github')

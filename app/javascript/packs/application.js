@@ -8,7 +8,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 require("@popperjs/core")
-
+import "@fortawesome/fontawesome-free/css/all"
 import "bootstrap"
 
 // Import the specific modules you may need (Modal, Alert, etc)

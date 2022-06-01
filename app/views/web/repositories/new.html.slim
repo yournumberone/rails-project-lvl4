@@ -1,0 +1,3 @@
+= simple_form_for @repository do |f|
+  = f.input :repo_id, collection: @repos
+  = f.button :submit, class: 'btn btn-outline-dark'

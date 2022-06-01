@@ -1,0 +1,28 @@
+nav.navbar.navbar-expand-lg.px-3.mb-3.rounded-bottom.border-bottom.shadow-lg.border-1.sticky-top
+  .container-fluid
+    = link_to t('github_quality'), root_path, class: 'navbar-brand text-black'
+
+  .navbar-nav.me-auto.mb-2.mb-lg-0
+
+  - if signed_in?
+    .nav-item
+      = link_to t('repositories'), repositories_path, class: 'nav-link text-secondary'
+
+
+  .nav-item.dropdown
+    a#navbarDropdown.nav-link.dropdown-toggle.text-secondary[href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false']
+      - if signed_in? && current_user.avatar.present?
+        = current_user.nickname
+        = image_tag current_user.avatar, size: '32x32', class: 'rounded-3 ms-2'
+      - else
+        i.fa-solid.fa-right-to-bracket
+
+    .dropdown-menu-end.dropdown-menu[aria-labelledby="navbarDropdown"]
+      - if signed_in?
+        / li
+        /   = link_to t('profile'), profile_path, class: 'dropdown-item text-secondary'
+        li
+          = link_to t('sign_out'), sign_out_path, method: :delete, class: 'dropdown-item text-secondary'
+      - else
+        li
+          = link_to t('sign_in'), sign_in_path, class: 'dropdown-item text-secondary'
