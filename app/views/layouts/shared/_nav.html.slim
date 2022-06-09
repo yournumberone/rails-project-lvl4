@@ -1,4 +1,4 @@
-nav.navbar.navbar-expand-lg.px-3.mb-3.rounded-bottom.border-bottom.shadow-lg.border-1.sticky-top
+nav.navbar.navbar-expand-lg.px-3.mb-3.rounded-bottom.border-bottom.shadow-lg.border-1.sticky-top.bg-light
   .container-fluid
     = link_to t('github_quality'), root_path, class: 'navbar-brand text-black'
 
@@ -19,10 +19,8 @@ nav.navbar.navbar-expand-lg.px-3.mb-3.rounded-bottom.border-bottom.shadow-lg.bor
 
     .dropdown-menu-end.dropdown-menu[aria-labelledby="navbarDropdown"]
       - if signed_in?
-        / li
-        /   = link_to t('profile'), profile_path, class: 'dropdown-item text-secondary'
         li
-          = link_to t('sign_out'), sign_out_path, method: :delete, class: 'dropdown-item text-secondary'
+          = link_to t('sign_out'), auth_path(current_user.id), method: :delete, class: 'dropdown-item text-secondary'
       - else
         li
-          = link_to t('sign_in'), sign_in_path, class: 'dropdown-item text-secondary'
+          = link_to t('sign_in'), new_auth_path, class: 'dropdown-item text-secondary'

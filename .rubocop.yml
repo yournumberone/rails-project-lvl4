@@ -12,6 +12,7 @@ AllCops:
     - 'vendor/**/*'
     - 'node_modules/**/*'
     - 'config/initializers/devise.rb'
+    - 'storage/**'
 
 Style/ClassAndModuleChildren:
   Enabled: false

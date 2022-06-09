@@ -1,3 +1,13 @@
-- @repositories.each do |rep|
-  h3
-    = link_to rep.name, repository_path(rep), class: 'text-dark'
+h1
+  = t('my_repos')
+  = link_to t('new_repo'), new_repository_path, class: 'btn btn-outline-dark m-3'
+.row
+  - @repositories.each do |rep|
+    .card.my-3.col-6
+      .card-body.shadow
+        = link_to repository_path(rep), class: 'text-dark text-decoration-none' do
+          h2.card-title.mb-3
+            = rep.name
+        .card-footer
+          .d-flex.justify-content-end
+            = link_to t('destroy'), repository_path(rep), method: :delete, data: { confirm: t('confirm_destroy') }, class: 'btn btn-sm btn-outline-dark'

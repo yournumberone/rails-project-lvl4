@@ -4,8 +4,27 @@ h1
       = @repository.name
 p
   .my-3
-    = t('url')
     = @repository.link
   .my-3
     = t('language')
-    = @repository.language
+    b
+      = @repository.language
+
+
+  = link_to t('new_check'), repository_checks_path(@repository, @check), method: :post, class: 'btn btn-dark'
+
+h2.my-3
+  = t('checks')
+.list-group
+  - @checks.each do |check|
+    - if check.id.present?
+      = link_to repository_check_path(check.repository, check), class: 'text-decoration-none' do
+        .d-flex.justify-content-between.list-group-item.list-group-item-action.list-group-item-dark.rounded-3
+          span
+            = check.id
+          span
+            = check.status
+          span
+            = check.created_at
+          span
+            = check.updated_at

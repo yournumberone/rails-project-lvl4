@@ -1,0 +1,51 @@
+= @check.id
+br
+= @check.status
+br
+= t('repo_name')
+=< @repository.name
+
+hr
+b.row
+  .col-6
+    = t('message')
+  .col-4
+    = t('rule')
+  .col-2
+    = t('line_column')
+
+.list-group
+  - if @rubocop.present?
+    - @rubocop['files'].each do |f|
+      b.mt-3
+        = f['path'].sub(/.*\/#{@repository.id}/, '')
+      br
+      - f['offenses'].each do |of|
+        .list-group-item.list-group-item-secondary.list-group-item-action
+          .row
+            .col-6
+              = of['message']
+            .col-4
+              = of['cop_name']
+            .col-2
+              = of['location']['start_line']
+              | :
+              = of['location']['start_column']
+
+.list-group
+  - if @eslint.present?
+    - @eslint.each do |f|
+      b.mt-3
+        = f['filePath'].sub(/.*\/#{@repository.id}/, '')
+      br
+      - f['messages'].each do |of|
+        .list-group-item.list-group-item-secondary.list-group-item-action
+          .row
+            .col-6
+              = of['message']
+            .col-4
+              = of['ruleId']
+            .col-2
+              = of['line']
+              | :
+              = of['column']

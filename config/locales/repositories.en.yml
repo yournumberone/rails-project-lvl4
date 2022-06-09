@@ -1,0 +1,9 @@
+en:
+  web:
+    repositories:
+      destroy:
+        success: Repository was destroyed
+        fail: Something wrong
+      create:
+        success: Repository was created
+        fail: Something wrong

@@ -15,6 +15,6 @@ class Web::AuthController < ApplicationController
 
   def destroy
     sign_out
-    redirect_to root_path, notice: t('see_you')
+    redirect_to root_path, notice: t('see_you', name: user.nickname)
   end
 end

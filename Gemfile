@@ -24,7 +24,8 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
+gem 'active_storage_validations'
+gem 'aws-sdk-s3'
 gem 'enumerize'
 gem 'faker'
 gem 'octokit', '~> 4.0'
@@ -75,4 +76,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'aasm', '~> 5.2'
 
-gem "minitest-power_assert", "~> 0.3.1"
+gem 'minitest-power_assert', '~> 0.3.1'
+
+gem 'git', '~> 1.11'

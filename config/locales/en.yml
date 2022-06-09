@@ -31,3 +31,9 @@
 
 en:
   hello: "Hello world"
+  language: "Language: "
+  rule: 'Rule'
+  message: 'Message'
+  line_column: 'Line:Column '
+  welcome: 'Welcome %{name}!'
+  see_you: 'Good bye %{name}.'
