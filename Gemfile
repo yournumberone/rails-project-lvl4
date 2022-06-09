@@ -33,6 +33,7 @@ gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 gem 'pundit', '~> 2.2'
 gem 'rollbar'
+gem 'rubocop-rails'
 gem 'simple_form'
 gem 'slim'
 
@@ -43,7 +44,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
-  gem 'rubocop-rails'
   gem 'slim_lint'
   gem 'sqlite3', '~> 1.4'
 end
