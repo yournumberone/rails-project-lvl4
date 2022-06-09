@@ -9,7 +9,7 @@ class RepositoryLoaderJob < ApplicationJob
 
     str = "#{object.link}.git"
     begin
-      Git.clone(str, "#{Rails.root}/repositories/#{object.id}")
+      Git.clone(str, "repositories/#{object.id}")
     rescue StandardError
       Rails.logger.debug 'oops'
     end
