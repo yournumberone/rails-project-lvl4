@@ -8,9 +8,12 @@ class LintRepositoryJob < ApplicationJob
     return if check.nil?
 
     repository = check.repository
-    RepositoryLoaderJob.perform_now(repository.id)
+    str = "#{repository.link}.git"
     check.to_checking!
+
     begin
+      Git.clone(str, "repositories/#{repository.id}")
+
       case repository.language
       when 'Ruby'
         check.result = `rubocop "repositories/#{repository.id}" --format json`
@@ -18,7 +21,7 @@ class LintRepositoryJob < ApplicationJob
         check.result = `npx eslint -c .eslintrc.yml --no-eslintrc -f json "repositories/#{repository.id}"`
       end
       check.check!
-    rescue TypeError
+    rescue TypeError, StandardError
       check.fail!
     end
   end
