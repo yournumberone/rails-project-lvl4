@@ -13,9 +13,9 @@ class LintRepositoryJob < ApplicationJob
     begin
       case repository.language
       when 'Ruby'
-        check.result = `rubocop "#{Rails.root.join('tmp/repositories', repository.id.to_s)}" --format json`
+        check.result = `rubocop "#{Rails.root.join('repositories', repository.id.to_s)}" --format json`
       when 'JavaScript'
-        check.result = `npx eslint -c .eslintrc.yml --no-eslintrc -f json "#{Rails.root.join('tmp/repositories', repository.id.to_s)}"`
+        check.result = `npx eslint -c .eslintrc.yml --no-eslintrc -f json "#{Rails.root.join('repositories', repository.id.to_s)}"`
       end
       check.check!
     rescue TypeError
