@@ -12,6 +12,7 @@ class LintRepositoryJob < ApplicationJob
     check.to_checking!
 
     begin
+      `rm -rf "repositories/#{repository.id}"`
       Git.clone(str, "repositories/#{repository.id}")
 
       case repository.language
@@ -21,7 +22,7 @@ class LintRepositoryJob < ApplicationJob
         check.result = `npx eslint -c .eslintrc.yml --no-eslintrc -f json "repositories/#{repository.id}"`
       end
       check.check!
-    rescue TypeError, StandardError
+    rescue StandardError
       check.fail!
     end
   end
