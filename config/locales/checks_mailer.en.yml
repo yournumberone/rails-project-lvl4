@@ -1,0 +1,5 @@
+en:
+  checks_mailer:
+    linter_results:
+      linter_results_subject: 'Quality results of your repository.'
+      hey: 'Hey %{name}'

@@ -1,0 +1,20 @@
+body
+  h1
+    = t('.hey', user_name: @user.name)
+  p
+    - if @check.repository.language == 'Ruby'
+      - @result['files'].each do |f|
+        b.mt-3
+          = f['path'].sub(/.*\/#{@repository.id}/, '')
+        br
+        - f['offenses'].each do |of|
+          .list-group-item.list-group-item-secondary.list-group-item-action
+            .row
+              .col-6
+                = of['message']
+              .col-4
+                = of['cop_name']
+              .col-2
+                = of['location']['start_line']
+                | :
+                = of['location']['start_column']

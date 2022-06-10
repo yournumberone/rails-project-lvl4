@@ -25,5 +25,6 @@ class LintRepositoryJob < ApplicationJob
     rescue StandardError
       check.fail!
     end
+    check.linter_results
   end
 end

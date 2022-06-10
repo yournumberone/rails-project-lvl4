@@ -22,4 +22,8 @@ class Repository::Check < ApplicationRecord
       transitions from: :checking, to: :failed
     end
   end
+
+  def send_results_email
+    ChecksMailer.with(user: repository.user, check: self).linter_results.deliver_now
+  end
 end
