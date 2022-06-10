@@ -1,4 +1,4 @@
-class ChecksMailer < applicationMailer
+class ChecksMailer < ApplicationMailer
 
   def linter_results
     @user = params[:user]
