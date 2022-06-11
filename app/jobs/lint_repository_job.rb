@@ -20,14 +20,11 @@ class LintRepositoryJob < ApplicationJob
         check.result = `rubocop "repositories/#{repository.id}" --format json`
         check.send_results_email if JSON.parse(check.result)['summary']['offense_count'].positive?
       when 'JavaScript'
-        # beep, boop = `yarn run eslint --no-eslintrc -c .eslintrc.yml -f json "repositories/#{repository.id}"`
-        `yarn run eslint --no-eslintrc -c .eslintrc.yml -f json -o "repositories/#{repository.id}.json" "repositories/#{repository.id}"`
-        check.result = File.read(Rails.root.join('repositories', "#{repository.id}.json"))
+        check.result = `npx eslint --no-eslintrc -c .eslintrc.yml -f json "repositories/#{repository.id}"`
       end
       check.check!
 
     rescue StandardError
-      # check.result = File.read("#{Rails.root.join('repositories', "#{repository.id}.json")}")
       check.fail!
       check.send_results_email
     end
