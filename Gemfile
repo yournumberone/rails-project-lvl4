@@ -79,3 +79,4 @@ gem 'aasm', '~> 5.2'
 gem 'minitest-power_assert', '~> 0.3.1'
 
 gem 'git', '~> 1.11'
+gem 'tty-command'
