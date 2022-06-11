@@ -31,6 +31,7 @@
 
 en:
   hello: "Hello world"
+  home_page: Analyze your Github repositories with Rubocop, Eslint.
   language: "Language: "
   rule: 'Rule'
   message: 'Message'
