@@ -37,3 +37,6 @@ en:
   line_column: 'Line:Column '
   welcome: 'Welcome %{name}!'
   see_you: 'Good bye %{name}.'
+  offense_count: 'Offense count: '
+  target_file_count: 'Target file count: '
+  inspected_file_count: 'Inspected file count: '

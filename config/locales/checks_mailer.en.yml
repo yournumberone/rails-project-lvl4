@@ -3,3 +3,6 @@ en:
     linter_results:
       linter_results_subject: 'Quality results of your repository.'
       hey: 'Hey %{name}'
+      check_with_problems: 'Your repository %{name} has problems.'
+      check_failed: 'Quality check of your repository %{name} was failed.'
+      check: Check

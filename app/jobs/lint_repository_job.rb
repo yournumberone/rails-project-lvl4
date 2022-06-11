@@ -22,9 +22,12 @@ class LintRepositoryJob < ApplicationJob
         check.result = `npx eslint -c .eslintrc.yml --no-eslintrc -f json "repositories/#{repository.id}"`
       end
       check.check!
+      check.send_results_email if JSON.parse(check.result)['summary']['offense_count'].positive?
+
+      puts '=' * 80
     rescue StandardError
       check.fail!
+      check.send_results_email
     end
-    check.send_results_email
   end
 end

@@ -1,0 +1,9 @@
+en:
+  activerecord:
+    attributes:
+      repository/check:
+        status:
+          checked: Checked
+          failed: Failed
+          checking: Checking
+          created: Created

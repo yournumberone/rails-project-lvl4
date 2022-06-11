@@ -1,9 +1,18 @@
-= @check.id
+= @check.aasm.human_state
 br
-= @check.status
-br
-= t('repo_name')
-=< @repository.name
+  b =< @repository.name
+
+- if @rubocop.present?
+  .d-flex.justify-content-between.mt-3.text-danger
+    span
+      = t('offense_count')
+      b = @rubocop['summary']['offense_count']
+    span
+      = t('target_file_count')
+      b = @rubocop['summary']['target_file_count']
+    span
+      = t('inspected_file_count')
+      b = @rubocop['summary']['inspected_file_count']
 
 hr
 b.row

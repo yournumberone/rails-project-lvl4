@@ -1,20 +1,21 @@
 body
   h1
-    = 's'
+    = t('.hey', name: @user.nickname)
   p
-    - if @check.repository.language == 'Ruby'
-      - @result['files'].each do |f|
-        b.mt-3
-          = f['path'].sub(/.*\/#{@check.repository.id}/, '')
-        br
-        - f['offenses'].each do |of|
-          .list-group-item.list-group-item-secondary.list-group-item-action
-            .row
-              .col-6
-                = of['message']
-              .col-4
-                = of['cop_name']
-              .col-2
-                = of['location']['start_line']
-                | :
-                = of['location']['start_column']
+    - if @check.repository.language == 'Ruby' && @check.checked?
+      h3
+        = t('.checked_with_problemms', name: @check.repository.name)
+      span
+        = t('offense_count')
+        b = @result['summary']['offense_count']
+      span
+        = t('target_file_count')
+        b = @result['summary']['target_file_count']
+      span
+        = t('inspected_file_count')
+        b = @result['summary']['inspected_file_count']
+    - elsif @check.failed
+      h3
+        = t('.check_failed', name: @check.repository.name)
+  br
+  = link_to t('.check'), repository_check_url(@check.repository, @check)
