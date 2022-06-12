@@ -3,8 +3,6 @@ body
     = t('.hey', name: @user.nickname)
   p
     - if @check.repository.language == 'Ruby' && @check.checked?
-      h3
-        = t('.checked_with_problems', name: @check.repository.name)
       span
         =< t('offense_count')
         b = @result['summary']['offense_count']
@@ -14,7 +12,7 @@ body
       span
         =< t('inspected_file_count')
         b = @result['summary']['inspected_file_count']
-    - elsif @check.failed
+    - elsif @check.failed?
       h3
         = t('.check_failed', name: @check.repository.name)
   br

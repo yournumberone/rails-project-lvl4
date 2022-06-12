@@ -23,7 +23,6 @@ class LintRepositoryJob < ApplicationJob
         check.result = `npx eslint --no-eslintrc -c .eslintrc.yml -f json "repositories/#{repository.id}"`
       end
       check.check!
-
     rescue StandardError
       check.fail!
       check.send_results_email

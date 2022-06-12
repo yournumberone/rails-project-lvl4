@@ -7,3 +7,8 @@ en:
       create:
         success: Repository was created
         fail: Something wrong
+
+
+      checks:
+        create:
+          success: The check has been created, wait for it to finish. If there are problems in your code, you will receive a notification by email
