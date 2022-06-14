@@ -1,6 +1,7 @@
-= @check.aasm.human_state
+h4
+  = @check.aasm.human_state
 br
-  b =< @repository.name
+  b = link_to @repository.name, @repository.link
 
 - if @rubocop.present?
   .d-flex.justify-content-between.mt-3.text-danger
@@ -14,6 +15,7 @@ br
       = t('inspected_file_count')
       b = @rubocop['summary']['inspected_file_count']
 
+= link_to t('back'), repository_path(@repository), class: 'btn btn-outline-dark my-3'
 hr
 b.row
   .col-6

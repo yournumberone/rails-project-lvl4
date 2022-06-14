@@ -18,6 +18,7 @@ require('@popperjs/core');
 // The stylesheet location we created earlier
 require('../stylesheets/application.scss');
 
+
 // If you're using Turbolinks. Otherwise simply use: jQuery(function () {
 document.addEventListener('turbolinks:load', () => {
   // Both of these are from the Bootstrap 5 docs

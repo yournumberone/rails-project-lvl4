@@ -14,6 +14,7 @@ class Web::AuthController < ApplicationController
   end
 
   def destroy
+    user = User.find(params[:id])
     sign_out
     redirect_to root_path, notice: t('see_you', name: user.nickname)
   end

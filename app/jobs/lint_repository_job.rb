@@ -18,14 +18,13 @@ class LintRepositoryJob < ApplicationJob
       case repository.language
       when 'Ruby'
         check.result = `rubocop "repositories/#{repository.id}" --format json`
-        check.send_results_email if JSON.parse(check.result)['summary']['offense_count'].positive?
       when 'JavaScript'
         check.result = `npx eslint --no-eslintrc -c .eslintrc.yml -f json "repositories/#{repository.id}"`
       end
       check.check!
     rescue StandardError
       check.fail!
-      check.send_results_email
     end
+    check.send_results_email if problems?
   end
 end

@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  uid: 12344
   nickname: MyString
-  email: MyString
+  email: bla@bla.com
+  token: asdkasdk
 
 two:
-  nickname: MyString
-  email: MyString
+  uid: 12345
+  nickname: MyString2
+  email: nothing@special.com
+  token: asdkaweq
