@@ -8,6 +8,7 @@ en:
   my_repos: 'My repositories'
   line_column: 'Line:Column '
   welcome: 'Welcome %{name}!'
+  auth_error: 'Error on authentication'
   see_you: 'Good bye %{name}.'
   offense_count: 'Offense count: '
   target_file_count: 'Target file count: '
@@ -20,3 +21,4 @@ en:
   destroy: Destroy
   checks: Checks
   new_check: New check
+  permission_denied: Permission denied.

@@ -3,6 +3,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'webmock/minitest'
 
 OmniAuth.config.test_mode = true
 
@@ -26,7 +27,7 @@ class ActionDispatch::IntegrationTest
         name: user.nickname
       },
       credentials: {
-        token: '123123'
+        token: 'ghu_lTOxGwZuOdwIYalfTWaIZgDKVyaTJW2hqWYW'
       }
     }
 

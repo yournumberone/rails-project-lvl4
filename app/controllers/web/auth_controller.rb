@@ -9,7 +9,7 @@ class Web::AuthController < ApplicationController
       sign_in(user)
       redirect_to root_path, notice: t('welcome', name: user.nickname)
     else
-      redirect_to root_path, alert: t('oops')
+      redirect_to root_path, alert: t('auth_error')
     end
   end
 

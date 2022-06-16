@@ -9,6 +9,8 @@ class Web::RepositoriesController < ApplicationController
 
   def show
     @repository = Repository.find(params[:id])
+    authorize @repository
+
     @checks = @repository.checks.order(created_at: :desc)
     @check = @repository.checks.build
   end
@@ -16,7 +18,7 @@ class Web::RepositoriesController < ApplicationController
   def new
     @repository = Repository.new
     client = Octokit::Client.new access_token: current_user.token, per_page: 100
-    ids = current_user.repositories.pluck(:repo_id)
+    ids = current_user.repositories.pluck(:github_id)
     @repos = client.repos
     @repos.delete_if { |r| ids.include? r.id }
   end
@@ -24,8 +26,8 @@ class Web::RepositoriesController < ApplicationController
   def create
     @repository = current_user.repositories.new(repository_params)
     if @repository.save
-      client = Octokit::Client.new(access_token: ENV.fetch('PERSONAL_ACCESS_TOKEN'))
-      add_webhook(client, @repo_name)
+      client = Octokit::Client.new(access_token: current_user.token)
+      add_webhook(client, @repository.github_id)
       redirect_to repository_path(@repository), notice: t('.success')
     else
       flash[:alert] = @repository.errors.first.full_message
@@ -35,6 +37,8 @@ class Web::RepositoriesController < ApplicationController
 
   def destroy
     @repository = Repository.find(params[:id])
+    authorize @repository
+
     if @repository.destroy
       redirect_to repositories_path, alert: t('.success')
     else
@@ -46,13 +50,14 @@ class Web::RepositoriesController < ApplicationController
 
   def repository_params
     client = Octokit::Client.new
-    repo = client.repo params[:repository][:repo_id].to_i
-    @repo_name = repo.full_name
-    { name: repo.name, link: repo.html_url, repo_id: repo.id,
+    repo = client.repo params[:repository][:github_id].to_i
+    { name: repo.name, link: repo.html_url, github_id: repo.id,
       language: repo.language || repo.parent.language }
   end
 
   def add_webhook(client, repository)
+    return if Rails.env.test?
+    # client.hooks(repository).each {|h| puts h.inspect}
     return if client.hooks(repository).any? { |hook| hook.config.url.start_with?(ENV.fetch('BASE_URL')) }
 
     client.create_hook(repository, 'web',

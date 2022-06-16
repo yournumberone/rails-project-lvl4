@@ -2,13 +2,16 @@
 
 class Web::Repositories::ChecksController < Web::Repositories::ApplicationController
   def index
-    @repository = Repository.find(params[:repository_id])
+    @repository = find_repository
     @checks = @repository.checks
+    authorize @repository
   end
 
   def show
     @check = Repository::Check.find(params[:id])
     @repository = @check.repository
+    authorize @repository
+
     if @check.result.present?
       case @repository.language
       when 'Ruby'
@@ -19,23 +22,16 @@ class Web::Repositories::ChecksController < Web::Repositories::ApplicationContro
     end
   end
 
-  def update; end
-
   def create
     @repository = find_repository
+    authorize @repository
+
     @check = @repository.checks.new
     if @check.save
       LintRepositoryJob.perform_later(@check.id)
       redirect_to repository_path(@repository), notice: t('.success')
     else
       redirect_to repository_path(@repository), alert: t('.fail')
-    end
-  end
-
-  def destroy
-    @check = Repository::Check.find(params[:id])
-    if @check.destroy
-      Rails.logger.debug '=' * 180
     end
   end
 

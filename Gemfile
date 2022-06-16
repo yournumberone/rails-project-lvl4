@@ -28,6 +28,7 @@ gem 'active_storage_validations'
 gem 'aws-sdk-s3'
 gem 'enumerize'
 gem 'faker'
+gem 'jwt'
 gem 'octokit', '~> 4.0'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
@@ -65,6 +66,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'webmock'
 end
 
 group :production do
@@ -80,3 +82,5 @@ gem 'minitest-power_assert', '~> 0.3.1'
 
 gem 'git', '~> 1.11'
 gem 'tty-command'
+
+gem "dry-container", "~> 0.9.0"

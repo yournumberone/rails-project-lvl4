@@ -1,5 +1,6 @@
-class ChecksMailer < ApplicationMailer
+# frozen_string_literal: true
 
+class ChecksMailer < ApplicationMailer
   def linter_results
     @user = params[:user]
     @check = params[:check]

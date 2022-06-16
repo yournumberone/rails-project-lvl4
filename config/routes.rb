@@ -13,9 +13,9 @@ Rails.application.routes.draw do
     get 'auth/:provider/callback', to: 'auth#callback', as: :callback_auth
     resources :auth, only: %i[new destroy]
 
-    resources :repositories do
+    resources :repositories, only: %i[index show create new destroy] do
       scope module: :repositories do
-        resources :checks
+        resources :checks, only: %i[index show create]
       end
     end
   end
