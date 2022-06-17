@@ -1,32 +1,25 @@
 # frozen_string_literal: true
 
 class Web::Repositories::ChecksController < Web::Repositories::ApplicationController
-  def index
-    @repository = find_repository
-    @checks = @repository.checks
-    authorize @repository
-  end
 
   def show
     @check = Repository::Check.find(params[:id])
-    @repository = @check.repository
-    authorize @repository
+    authorize @check
 
-    if @check.result.present?
-      case @repository.language
-      when 'Ruby'
-        @rubocop = JSON.parse @check.result
-      when 'JavaScript'
-        @eslint = JSON.parse @check.result
-      end
+    @repository = @check.repository
+    case @repository.language
+    when 'Ruby'
+      @rubocop = JSON.parse @check&.result
+    when 'JavaScript'
+      @eslint = JSON.parse @check&.result
     end
   end
 
   def create
     @repository = find_repository
-    authorize @repository
-
     @check = @repository.checks.new
+    authorize @check
+
     if @check.save
       LintRepositoryJob.perform_later(@check.id)
       redirect_to repository_path(@repository), notice: t('.success')

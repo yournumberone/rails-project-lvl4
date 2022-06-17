@@ -2,11 +2,7 @@
 
 class Repository::CheckPolicy < ApplicationPolicy
   def show?
-    record.user == user
-  end
-
-  def index?
-    show?
+    record.repository.user == user
   end
 
   def create?
