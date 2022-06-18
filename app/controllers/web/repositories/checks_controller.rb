@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 class Web::Repositories::ChecksController < Web::Repositories::ApplicationController
-
   def show
     @check = Repository::Check.find(params[:id])
     authorize @check
 
     @repository = @check.repository
+    return if @check.result.nil?
+
     case @repository.language
     when 'Ruby'
-      @rubocop = JSON.parse @check&.result
+      @rubocop = JSON.parse @check.result
     when 'JavaScript'
-      @eslint = JSON.parse @check&.result
+      @eslint = JSON.parse @check.result
     end
   end
 

@@ -1,0 +1,7 @@
+one:
+  repository: one
+  status: created
+
+two:
+  repository: two
+  status: created

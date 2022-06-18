@@ -83,4 +83,4 @@ gem 'minitest-power_assert', '~> 0.3.1'
 gem 'git', '~> 1.11'
 gem 'tty-command'
 
-gem "dry-container", "~> 0.9.0"
+gem 'dry-container', '~> 0.9.0'

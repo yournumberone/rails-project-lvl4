@@ -4,7 +4,7 @@ br
   b = link_to @repository.name, @repository.link
 
 - if @rubocop.present?
-  .d-flex.justify-content-between.mt-3.text-danger
+  div class="d-flex justify-content-between mt-3 #{offense_count(@rubocop['summary']['offense_count'])}"
     span
       = t('offense_count')
       b = @rubocop['summary']['offense_count']
@@ -29,7 +29,7 @@ b.row
   - if @rubocop.present?
     - @rubocop['files'].each do |f|
       b.mt-3
-        = f['path'].sub(/.*\/#{@repository.id}/, '')
+        = f['path'].sub(/.*\/#{@repository.id}/, '') if f['offenses'].count.positive?
       br
       - f['offenses'].each do |of|
         .list-group-item.list-group-item-secondary.list-group-item-action

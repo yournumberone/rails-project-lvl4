@@ -28,6 +28,8 @@ class Repository::Check < ApplicationRecord
   end
 
   def problems?
+    return false if result.nil?
+
     JSON.parse(result).size.positive? || failed?
   end
 end

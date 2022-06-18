@@ -8,23 +8,16 @@ class LintRepositoryJob < ApplicationJob
     return if check.nil?
 
     repository = check.repository
-    str = "#{repository.link}.git"
+    link = "#{repository.link}.git"
     check.to_checking!
 
     begin
-      `rm -rf "repositories/#{repository.id}"`
-      Git.clone(str, "repositories/#{repository.id}")
-
-      case repository.language
-      when 'Ruby'
-        check.result = `rubocop "repositories/#{repository.id}" --format json`
-      when 'JavaScript'
-        check.result = `npx eslint --no-eslintrc -c .eslintrc.yml -f json "repositories/#{repository.id}"`
-      end
+      ApplicationContainer[:load_repository].download(link, repository.id)
+      check.result = ApplicationContainer[:linter].check(repository.language, repository.id)
       check.check!
     rescue StandardError
       check.fail!
     end
-    check.send_results_email if problems?
+    check.send_results_email if check.problems?
   end
 end

@@ -27,7 +27,7 @@ class ActionDispatch::IntegrationTest
         name: user.nickname
       },
       credentials: {
-        token: 'ghu_lTOxGwZuOdwIYalfTWaIZgDKVyaTJW2hqWYW'
+        token: 'super token'
       }
     }
 

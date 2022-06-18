@@ -6,15 +6,12 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     @response = file_fixture('response.json').read
     @headers = {
-      'Accept' => '*/*',
-      'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
       'Authorization' => '*',
-      'Content-Type' => 'application/json',
-      'User-Agent' => 'Octokit Ruby Gem 4.23.0'
+      'Content-Type' => 'application/json'
     }
   end
 
-  test 'should get index' do
+  test 'get index' do
     repositories = @user.repositories
     get repositories_url
 
@@ -22,21 +19,27 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     assert { repositories.size == 1 }
   end
 
-  test 'should get new' do
-    # @uri_template = Addressable::Template.new 'https://api.github.com/user/repos?per_page=100'
-    # @headers.merge({ 'Authorization' => 'token ghu_lTOxGwZuOdwIYalfTWaIZgDKVyaTJW2hqWYW' })
+  test 'get new' do
     stub_request(:get, /api.github.com/)
       .to_return(status: 200, body: @response, headers: @headers)
     get new_repository_url
     assert_response :success
   end
 
-  test 'should create repository' do
+  test 'create repository' do
     stub_request(:get, /api.github.com/)
       .to_return(status: 200, body: @response, headers: @headers)
-    post repositories_url, params: { repository: { github_id: 1296269 } }
-    repository = Repository.find_by(link: 'https://github.com/octocat/Hello-World')
-    puts repository.inspect
+    post repositories_url, params: { repository: { github_id: 479_483_417 } }
+    repository = Repository.find_by(link: 'https://github.com/yournumberone/rails-project-lvl2')
+
     assert_redirected_to repository_url(repository)
+  end
+
+  test 'destroy repository' do
+    repository = repositories(:one)
+    delete repository_url(repository)
+    assert_not(Repository.exists?(repository.id))
+
+    assert_redirected_to repositories_url
   end
 end
