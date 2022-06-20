@@ -8,7 +8,6 @@ nav.navbar.navbar-expand-lg.px-3.mb-3.rounded-bottom.border-bottom.shadow-lg.bor
     .nav-item
       = link_to t('repositories'), repositories_path, class: 'nav-link text-secondary'
 
-
   .nav-item.dropdown
     a#navbarDropdown.nav-link.dropdown-toggle.text-secondary[href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false']
       - if signed_in? && current_user.avatar.present?

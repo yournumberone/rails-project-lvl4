@@ -26,8 +26,6 @@ class Web::RepositoriesController < ApplicationController
   def create
     @repository = current_user.repositories.new(repository_params)
     if @repository.save
-      # docker_octokit = Rails.env.test? ? OctokitStub : Octokit::Client
-
       client = ApplicationContainer[:add_webhook].new(access_token: current_user.token)
       add_webhook(client, @repository.github_id)
       redirect_to repository_path(@repository), notice: t('.success')
@@ -57,10 +55,10 @@ class Web::RepositoriesController < ApplicationController
       language: repo.language || repo.parent.language }
   end
 
-  def add_webhook(client, repository)
-    return if client.hooks(repository).any? { |hook| hook.config.url.start_with?(ENV.fetch('BASE_URL')) }
+  def add_webhook(client, repository_id)
+    return if client.hooks(repository_id).any? { |hook| hook.config.url.start_with?(ENV.fetch('BASE_URL')) }
 
-    client.create_hook(repository, 'web',
+    client.create_hook(repository_id, 'web',
                        { url: "#{ENV.fetch('BASE_URL')}/api/checks", content_type: 'json' },
                        { events: %w[push pull_request], active: true })
   end

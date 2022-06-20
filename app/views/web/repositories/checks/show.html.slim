@@ -29,7 +29,7 @@ b.row
   - if @rubocop.present?
     - @rubocop['files'].each do |f|
       b.mt-3
-        = f['path'].sub(/.*\/#{@repository.id}/, '') if f['offenses'].count.positive?
+        = f['path'].sub(%r{.*/#{@repository.id}}, '') if f['offenses'].count.positive?
       br
       - f['offenses'].each do |of|
         .list-group-item.list-group-item-secondary.list-group-item-action
@@ -47,7 +47,7 @@ b.row
   - if @eslint.present?
     - @eslint.each do |f|
       b.mt-3
-        = f['filePath'].sub(/.*\/#{@repository.id}/, '')
+        = f['filePath'].sub(%r{.*/#{@repository.id}}, '')
       br
       - f['messages'].each do |of|
         .list-group-item.list-group-item-secondary.list-group-item-action

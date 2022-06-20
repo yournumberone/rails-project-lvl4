@@ -1,18 +1,7 @@
 # frozen_string_literal: true
 
-class Greeting
-  @@people = []
-
-  def initialize(name)
-    @@people << name
-    puts "Hello #{name}!"
-  end
-
-  def self.clear
-    @@people = []
-  end
-
-  def self.people
-    @@people
+module Greeting
+  def say_hello(name)
+    puts "Hello #{name}"
   end
 end

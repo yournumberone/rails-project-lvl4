@@ -5,9 +5,11 @@ one:
   link: MyString
   name: MyString
   language: Ruby
+  github_id: 1
 
 two:
   user: two
   link: MyString
   name: MyString
   language: JavaScript
+  github_id: 2

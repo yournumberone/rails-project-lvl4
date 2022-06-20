@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AddWebhookStub
+  def initialize(*options); end
+
   def config
     self
   end
@@ -10,6 +12,10 @@ class AddWebhookStub
   end
 
   def url
-    'https://repository-quality.herokuapp.com'
+    ''
+  end
+
+  def create_hook(*_args)
+    'Hook was created.'
   end
 end
