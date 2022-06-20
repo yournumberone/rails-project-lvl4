@@ -51,7 +51,7 @@ class Web::RepositoriesController < ApplicationController
   def repository_params
     client = Octokit::Client.new
     repo = client.repo params[:repository][:github_id].to_i
-    { name: repo.name, link: repo.html_url, github_id: repo.id,
+    { name: repo.name, full_name: repo.full_name, link: repo.html_url, github_id: repo.id,
       language: repo.language || repo.parent.language }
   end
 

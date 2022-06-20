@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+# not intended for Github Actions
 class LinterStub
   def self.check(language, _id)
-    case language
-    when 'Ruby'
-      `rubocop "#{Rails.root}/test/fixtures/files/#{language}" --format json`
-    when 'JavaScript'
-      `npx eslint --no-eslintrc -c .eslintrc.yml -f json "#{Rails.root}/test/fixtures/files/#{language}"`
-    end
+    # case language
+    # when 'Ruby'
+    #   `rubocop "test/fixtures/files/#{language}" --format json`
+    # when 'JavaScript'
+    #   `npx eslint --no-eslintrc -c .eslintrc.yml -f json "test/fixtures/files/#{language}"`
+    # end
   end
 end
