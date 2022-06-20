@@ -5,7 +5,7 @@ class Web::Repositories::ChecksControllerTest < ActionDispatch::IntegrationTest
     @user = users(:two)
     sign_in @user
     @repository = repositories(:two)
-    @check = repository_checks(:two)
+    @check = repository_checks(:js)
   end
 
   test 'get show' do

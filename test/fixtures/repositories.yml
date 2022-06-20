@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 22
   user: one
   link: MyString
   name: MyString
@@ -8,6 +9,7 @@ one:
   github_id: 1
 
 two:
+  id: 33
   user: two
   link: MyString
   name: MyString
