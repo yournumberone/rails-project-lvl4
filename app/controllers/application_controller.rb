@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include Authentication
+  include AuthConcern
   include Pundit::Authorization
 
   helper_method :current_user, :signed_in?

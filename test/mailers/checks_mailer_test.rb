@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class ChecksMailerTest < ActionMailer::TestCase
-  test 'send email' do
+  test 'send email if check has problems/failed' do
     assert_emails 1 do
       check = repository_checks(:ruby)
       check.fail!
