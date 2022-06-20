@@ -2,7 +2,7 @@ en:
   activerecord:
     attributes:
       repository/check:
-        status:
+        aasm_state:
           checked: Checked
           failed: Failed
           checking: Checking

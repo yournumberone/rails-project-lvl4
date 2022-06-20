@@ -4,7 +4,7 @@ class Repository::Check < ApplicationRecord
   include AASM
   belongs_to :repository, class_name: 'Repository'
 
-  aasm column: :status, whiny_transitions: false do
+  aasm column: :aasm_state, whiny_transitions: false do
     state :created, initial: true
     state :checking
     state :checked
