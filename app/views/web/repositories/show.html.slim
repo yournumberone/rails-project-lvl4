@@ -20,7 +20,7 @@ h2.my-3
       = link_to repository_check_path(check.repository, check), class: 'text-decoration-none' do
         .d-flex.justify-content-between.list-group-item.list-group-item-action.list-group-item-dark.rounded-3
           span
-            = check.status
+            = check.aasm_state
           span
             = check.created_at
           span
