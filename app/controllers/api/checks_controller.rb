@@ -9,5 +9,6 @@ class Api::ChecksController < Api::ApplicationController
 
     check = repository.checks.new
     LintRepositoryJob.perform_later(check.id) if check.save
+    render json: { '200': 'I don\'t wanna flirt with you, but I really wanna see a green pipeline' }, status: :ok
   end
 end

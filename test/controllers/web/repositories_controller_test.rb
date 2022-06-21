@@ -6,8 +6,11 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     @response = file_fixture('response.json').read
     @headers = {
-      'Authorization' => '*',
-      'Content-Type' => 'application/json'
+      Authorization: '*',
+      Accept: 'application/vnd.github.v3+json',
+      'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Content-Type': 'application/json',
+      'User-Agent': 'Octokit Ruby Gem 4.23.0'
     }
   end
 
@@ -27,11 +30,10 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'create repository' do
-    stub_request(:get, /api.github.com/)
-      .to_return(status: 200, body: @response, headers: @headers)
-    post repositories_url, params: { repository: { github_id: 479_483_417 } }
+    github_id = JSON.parse(@response)['id']
+    stub_request(:get, "https://api.github.com/repositories/#{github_id}").to_return(status: 200, body: @response, headers: @headers)
+    post repositories_url, params: { repository: { github_id: github_id } }
     repository = Repository.find_by(link: 'https://github.com/yournumberone/rails-project-lvl2')
-
     assert_redirected_to repository_url(repository)
   end
 
