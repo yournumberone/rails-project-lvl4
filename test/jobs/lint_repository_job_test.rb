@@ -11,12 +11,12 @@ class LintRepositoryJobTest < ActiveJob::TestCase
   test 'check ruby' do
     LintRepositoryJob.perform_now(@ruby_check.id)
     @ruby_check.reload
-    assert { @ruby_check.aasm_state == 'checked' }
+    assert { @ruby_check.aasm_state == 'finished' }
   end
 
   test 'check js' do
     LintRepositoryJob.perform_now(@js_check.id)
     @js_check.reload
-    assert { @js_check.aasm_state == 'checked' }
+    assert { @js_check.aasm_state == 'finished' }
   end
 end

@@ -7,15 +7,15 @@ class Repository::Check < ApplicationRecord
   aasm column: :aasm_state, whiny_transitions: false do
     state :created, initial: true
     state :checking
-    state :checked
+    state :finished
     state :failed
 
     event :to_checking do
       transitions from: %i[created], to: :checking
     end
 
-    event :check do
-      transitions from: %i[checking], to: :checked
+    event :finish do
+      transitions from: %i[checking], to: :finished
     end
 
     event :fail do
@@ -30,6 +30,8 @@ class Repository::Check < ApplicationRecord
   def problems?
     return false if result.nil?
 
-    JSON.parse(result).size.positive? || failed?
+    self.passed = false if JSON.parse(result).size.positive? || failed?
+    save
+    !passed?
   end
 end

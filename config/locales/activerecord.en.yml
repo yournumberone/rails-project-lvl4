@@ -3,7 +3,7 @@ en:
     attributes:
       repository/check:
         aasm_state:
-          checked: Checked
+          finished: finished
           failed: Failed
           checking: Checking
           created: Created

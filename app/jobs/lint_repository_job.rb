@@ -14,7 +14,7 @@ class LintRepositoryJob < ApplicationJob
     begin
       ApplicationContainer[:load_repository].download(link, repository.id)
       check.result = ApplicationContainer[:linter].check(repository.language, repository.id)
-      check.check!
+      check.finish!
     rescue StandardError
       check.fail!
     end
