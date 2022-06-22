@@ -15,6 +15,10 @@ class OctokitClientStub
     ''
   end
 
+  def repo(id)
+    File.read(Rails.root.join('test/fixtures/files/response.json'))
+  end
+
   def create_hook(*_args)
     'Hook was created.'
   end
