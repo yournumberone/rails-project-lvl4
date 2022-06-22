@@ -12,7 +12,7 @@ module ApplicationHelper
     end
   end
 
-  def offense_count(num)
-    num.positive? ? 'text-danger' : 'text-success'
+  def passed_theme(bull)
+    bull ? 'text-success' : 'text-danger'
   end
 end

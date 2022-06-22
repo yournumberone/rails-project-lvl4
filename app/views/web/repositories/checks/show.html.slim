@@ -4,7 +4,7 @@ br
   b = link_to @repository.name, @repository.link
 
 - if @rubocop.present?
-  div class="d-flex justify-content-between mt-3 #{offense_count(@rubocop['summary']['offense_count'])}"
+  div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
     span
       = t('offense_count')
       b = @rubocop['summary']['offense_count']
