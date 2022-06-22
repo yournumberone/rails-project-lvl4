@@ -8,11 +8,11 @@ class LintRepositoryJob < ApplicationJob
     return if check.nil?
 
     repository = check.repository
-    link = "#{repository.link}.git"
+
     check.to_checking!
 
     begin
-      ApplicationContainer[:load_repository].download(link, repository.id)
+      ApplicationContainer[:load_repository].download(repository.id)
       check.result = ApplicationContainer[:linter].check(repository.language, repository.id)
       check.finish!
     rescue StandardError

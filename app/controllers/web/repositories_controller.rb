@@ -20,13 +20,14 @@ class Web::RepositoriesController < ApplicationController
     client = Octokit::Client.new access_token: current_user.token, per_page: 100
     ids = current_user.repositories.pluck(:github_id)
     @repos = client.repos
-    @repos.delete_if { |r| ids.include? r.id }
+    @repos.delete_if { |r| ids.include?(r.id) || Repository.language.values.exclude?(r.language || r.parent&.language) }
   end
 
   def create
-    @repository = current_user.repositories.new(repository_params)
+    @repository = current_user.repositories.new(github_id: params[:repository][:github_id])
     if @repository.save
-      client = ApplicationContainer[:add_webhook].new(access_token: current_user.token)
+      LoadRepositoryInfoJob.perform_later(@repository.id)
+      client = ApplicationContainer[:octokit].new(access_token: current_user.token)
       add_webhook(client, @repository.github_id)
       redirect_to repository_path(@repository), notice: t('.success')
     else
@@ -49,10 +50,10 @@ class Web::RepositoriesController < ApplicationController
   private
 
   def repository_params
-    client = Octokit::Client.new
-    repo = client.repo params[:repository][:github_id].to_i
-    { name: repo['name'], full_name: repo['full_name'], link: repo['html_url'], github_id: repo['id'],
-      language: repo['language'] || repo['parent']['language'] }
+    # client = Octokit::Client.new
+    # repo = client.repo params[:repository][:github_id].to_i
+    # { name: repo['name'], full_name: repo['full_name'], link: repo['html_url'], github_id: repo['id'],
+    #   language: repo['language'] || repo['parent']['language'] }
   end
 
   def add_webhook(client, repository_id)

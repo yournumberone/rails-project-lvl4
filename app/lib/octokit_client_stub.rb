@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddWebhookStub
+class OctokitClientStub
   def initialize(*options); end
 
   def config
