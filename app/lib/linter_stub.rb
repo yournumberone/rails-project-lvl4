@@ -3,11 +3,6 @@
 # not intended for Github Actions
 class LinterStub
   def self.check(language, _id)
-    # case language
-    # when 'Ruby'
-    #   `rubocop "test/fixtures/files/#{language}" --format json`
-    # when 'JavaScript'
-    #   `npx eslint --no-eslintrc -c .eslintrc.yml -f json "test/fixtures/files/#{language}"`
-    # end
+    File.read(Rails.root.join("test/fixtures/files/#{language}/result.json"))
   end
 end

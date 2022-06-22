@@ -6,7 +6,7 @@ class Linter
     when 'Ruby'
       `rubocop "repositories/#{id}" --format json`
     when 'JavaScript'
-      `npx eslint --no-eslintrc -c .eslintrc.yml -f json "repositories/#{id}"`
+      `npx eslint --no-eslintrc -c .eslintrc.yml -f json "repositories/#{id}" --quiet`
     end
   end
 end

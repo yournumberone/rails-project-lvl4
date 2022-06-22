@@ -26,12 +26,4 @@ class Repository::Check < ApplicationRecord
   def send_results_email
     ChecksMailer.with(user: repository.user, check: self).linter_results.deliver_now
   end
-
-  def problems?
-    return false if result.nil?
-
-    self.passed = false if JSON.parse(result).size.positive? || failed?
-    save
-    !passed?
-  end
 end

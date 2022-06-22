@@ -15,8 +15,4 @@ module ApplicationHelper
   def offense_count(num)
     num.positive? ? 'text-danger' : 'text-success'
   end
-
-  def datetime_abb_month(datetime)
-    datetime.strftime('%H:%M %B %d %Y')
-  end
 end
