@@ -17,6 +17,5 @@ class Web::Repositories::ChecksControllerTest < ActionDispatch::IntegrationTest
     assert_difference 'Repository::Check.count' do
       post repository_checks_url(@repository)
     end
-    # assert_enqueued_with job: LintRepositoryJob
   end
 end

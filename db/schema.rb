@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2022_06_21_063538) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.json "result"
-    t.boolean "passed"
+    t.boolean "passed", default: false
     t.index ["repository_id"], name: "index_repository_checks_on_repository_id"
   end
 
