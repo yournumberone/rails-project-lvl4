@@ -15,7 +15,7 @@ class OctokitClientStub
     ''
   end
 
-  def repo(id)
+  def repo(_id)
     File.read(Rails.root.join('test/fixtures/files/response.json'))
   end
 
