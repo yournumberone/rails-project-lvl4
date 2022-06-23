@@ -6,7 +6,9 @@ class Api::ChecksController < Api::ApplicationController
     return if repository.nil?
 
     check = repository.checks.new
-    LintRepositoryJob.perform_later(check.id) if check.save
+    if check.save
+      LintRepositoryJob.perform_later(check.id)
+    end
     render json: { '200': 'OK' }, status: :ok
   end
 end
