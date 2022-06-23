@@ -2,6 +2,6 @@
 
 class LinterStub
   def self.check(language, _id)
-    File.read(Rails.root.join("test/fixtures/files/#{language || 'Ruby'}/result.json"))
+    File.read(Rails.root.join("test/fixtures/files/#{language || 'JavaScript'}/result.json"))
   end
 end
