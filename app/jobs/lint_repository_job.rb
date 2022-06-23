@@ -7,8 +7,6 @@ class LintRepositoryJob < ApplicationJob
     check = Repository::Check.find_by(id: check_id)
     return if check.nil?
 
-    puts check.repository.inspect
-    puts '*-' * 90
     repository = check.repository
 
     check.to_checking!
