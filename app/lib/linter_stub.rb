@@ -3,6 +3,6 @@
 # not intended for Github Actions
 class LinterStub
   def self.check(language, _id)
-    JSON.parse File.read(Rails.root.join("test/fixtures/files/#{language}/result.json"))
+    File.read(Rails.root.join("test/fixtures/files/#{language}/result.json"))
   end
 end
