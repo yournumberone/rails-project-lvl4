@@ -7,3 +7,5 @@ en:
           failed: Failed
           checking: Checking
           created: Created
+      repository:
+        github_id: Repository
