@@ -6,7 +6,7 @@ br
   div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
     span
       = t('offense_count')
-      b = @rubocop.present? ? @rubocop['summary']['offense_count'] : @eslint.reduce(0) { |sum, i| sum + i['errorCount'] + i['warningCount'] }
+      b = @rubocop.present? ? @rubocop['summary']['offense_count'] : @eslint&.reduce(0) { |sum, i| sum + i['errorCount'] + i['warningCount'] }
     span
       = t('inspected_file_count')
       b = @rubocop.present? ? @rubocop['summary']['inspected_file_count'] : @eslint.size
