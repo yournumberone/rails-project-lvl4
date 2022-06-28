@@ -9,7 +9,7 @@ br
       b = @rubocop.present? ? @rubocop['summary']['offense_count'] : @eslint&.reduce(0) { |sum, i| sum + i['errorCount'] + i['warningCount'] }
     span
       = t('inspected_file_count')
-      b = @rubocop.present? ? @rubocop['summary']['inspected_file_count'] : @eslint.size
+      b = @rubocop.present? ? @rubocop['summary']['inspected_file_count'] : @eslint&.size
 
 = link_to t('back'), repository_path(@repository), class: 'btn btn-outline-dark my-3'
 hr
