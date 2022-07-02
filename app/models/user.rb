@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  has_many :repositories, dependent: :delete_all
+  has_many :repositories, dependent: :destroy
 
   def self.login_with_oauth(auth)
     user = find_or_initialize_by(email: auth.info.email)

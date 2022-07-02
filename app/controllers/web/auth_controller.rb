@@ -3,7 +3,6 @@
 class Web::AuthController < ApplicationController
   def callback
     auth = request.env['omniauth.auth']
-    Rails.logger.debug auth
     user = User.login_with_oauth(auth)
     if user.save
       sign_in(user)
@@ -12,6 +11,8 @@ class Web::AuthController < ApplicationController
       redirect_to root_path, alert: t('auth_error')
     end
   end
+
+  def new; end
 
   def destroy
     user = User.find(params[:id])

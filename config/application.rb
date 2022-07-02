@@ -12,7 +12,7 @@ module GithubQuality
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    routes.default_url_options = { host: ENV.fetch('BASE_URL', nil) }
+    routes.default_url_options = { host: ENV.fetch('BASE_URL') }
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

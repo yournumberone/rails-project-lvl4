@@ -10,7 +10,7 @@ class Repository::Check < ApplicationRecord
     state :finished
     state :failed
 
-    event :to_checking do
+    event :check do
       transitions from: %i[created], to: :checking
     end
 

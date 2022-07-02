@@ -17,10 +17,10 @@ class Web::RepositoriesController < ApplicationController
 
   def new
     @repository = Repository.new
-    client = Octokit::Client.new access_token: current_user.token, per_page: 100
+    client = ApplicationContainer[:octokit].new access_token: current_user.token, per_page: 100
     ids = current_user.repositories.pluck(:github_id)
     @repos = client.repos
-    @repos.delete_if { |r| ids.include?(r.id) || Repository.language.values.exclude?(r.language || r.parent&.language) }
+    @repos.delete_if { |r| ids.include?(r['id']) || Repository.language.values.exclude?(r['language']) }
   end
 
   def create
@@ -49,18 +49,11 @@ class Web::RepositoriesController < ApplicationController
 
   private
 
-  def repository_params
-    # client = Octokit::Client.new
-    # repo = client.repo params[:repository][:github_id].to_i
-    # { name: repo['name'], full_name: repo['full_name'], link: repo['html_url'], github_id: repo['id'],
-    #   language: repo['language'] || repo['parent']['language'] }
-  end
-
   def add_webhook(client, repository_id)
     return if client.hooks(repository_id).any? { |hook| hook.config.url.start_with?(ENV.fetch('BASE_URL')) }
 
     client.create_hook(repository_id, 'web',
-                       { url: "#{ENV.fetch('BASE_URL')}/api/checks", content_type: 'json' },
+                       { url: api_checks_url, content_type: 'json' },
                        { events: %w[push pull_request], active: true })
   end
 end

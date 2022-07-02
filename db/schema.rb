@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_21_063538) do
+ActiveRecord::Schema.define(version: 2022_07_01_072217) do
 
   create_table "repositories", force: :cascade do |t|
     t.integer "github_id"
@@ -47,4 +47,6 @@ ActiveRecord::Schema.define(version: 2022_06_21_063538) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
+  add_foreign_key "repositories", "users"
+  add_foreign_key "repository_checks", "repositories"
 end

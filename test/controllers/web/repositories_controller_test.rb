@@ -15,23 +15,18 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'get index' do
-    repositories = @user.repositories
     get repositories_url
 
     assert_response :success
-    assert { repositories.size == 1 }
   end
 
   test 'get new' do
-    stub_request(:get, /api.github.com/)
-      .to_return(status: 200, body: @response, headers: @headers)
     get new_repository_url
     assert_response :success
   end
 
   test 'create repository' do
     github_id = JSON.parse(@response)['id']
-    stub_request(:get, "https://api.github.com/repositories/#{github_id}").to_return(status: 200, body: @response, headers: @headers)
     post repositories_url, params: { repository: { github_id: github_id } }
     repository = Repository.find_by(github_id: github_id)
     assert_redirected_to repository_url(repository)

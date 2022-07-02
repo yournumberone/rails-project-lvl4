@@ -8,7 +8,7 @@ class LintRepositoryJob < ApplicationJob
     return if check.nil?
 
     repository = check.repository
-    check.to_checking!
+    check.check!
 
     begin
       ApplicationContainer[:load_repository].download(repository.id)
