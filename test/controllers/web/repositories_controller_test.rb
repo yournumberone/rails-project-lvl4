@@ -29,7 +29,9 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     github_id = JSON.parse(@response)['id']
     post repositories_url, params: { repository: { github_id: github_id } }
     repository = Repository.find_by(github_id: github_id)
+
     assert_redirected_to repository_url(repository)
+    assert { [repository.language, repository.full_name] == ['Ruby', 'yournumberone/rails-project-lvl2'] }
   end
 
   test 'destroy repository' do

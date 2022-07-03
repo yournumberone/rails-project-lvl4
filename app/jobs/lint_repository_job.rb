@@ -23,6 +23,6 @@ class LintRepositoryJob < ApplicationJob
     rescue StandardError
       check.fail!
     end
-    check.send_results_email unless check.passed?
+    ChecksMailer.with(user: repository.user, check: check).linter_results.deliver_now unless check.passed?
   end
 end

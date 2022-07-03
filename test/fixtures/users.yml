@@ -2,12 +2,12 @@
 
 one:
   uid: 12344
-  nickname: MyString
-  email: bla@bla.com
-  token: ghu_lTOxGwZuOdwIYalfTWaIZgDKVyaTJW2hqWYW
+  nickname: childish_gambino
+  email: americanboy@supermail.com
+  token: secretsyms
 
 two:
   uid: 12345
-  nickname: MyString2
-  email: nothing@special.com
+  nickname: super_sebastian
+  email: sebastian@supermail.com
   token: asdkaweq

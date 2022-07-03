@@ -17,18 +17,18 @@ class Web::RepositoriesController < ApplicationController
 
   def new
     @repository = Repository.new
-    client = ApplicationContainer[:octokit].new access_token: current_user.token, per_page: 100
-    ids = current_user.repositories.pluck(:github_id)
-    @repos = client.repos
-    @repos.delete_if { |r| ids.include?(r['id']) || Repository.language.values.exclude?(r['language']) }
+    @repos = Rails.cache.fetch("repos_#{current_user.nickname}") do
+      client = ApplicationContainer[:octokit].new access_token: current_user.token, per_page: 100
+      ids = current_user.repositories.pluck(:github_id)
+      repos = client.repos
+      repos.delete_if { |r| ids.include?(r['id']) || Repository.language.values.exclude?(r['language']) }
+    end
   end
 
   def create
     @repository = current_user.repositories.new(github_id: params[:repository][:github_id])
     if @repository.save
       LoadRepositoryInfoJob.perform_later(@repository.id)
-      client = ApplicationContainer[:octokit].new(access_token: current_user.token)
-      add_webhook(client, @repository.github_id)
       redirect_to repository_path(@repository), notice: t('.success')
     else
       flash[:alert] = @repository.errors.first.full_message
@@ -45,15 +45,5 @@ class Web::RepositoriesController < ApplicationController
     else
       redirect_to repositories_path, alert: t('.fail')
     end
-  end
-
-  private
-
-  def add_webhook(client, repository_id)
-    return if client.hooks(repository_id).any? { |hook| hook.config.url.start_with?(ENV.fetch('BASE_URL')) }
-
-    client.create_hook(repository_id, 'web',
-                       { url: api_checks_url, content_type: 'json' },
-                       { events: %w[push pull_request], active: true })
   end
 end

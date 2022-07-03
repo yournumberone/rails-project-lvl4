@@ -1,8 +1,8 @@
 ruby:
-  repository_id: 22
+  repository: one
   aasm_state: created
   result: '[{"metadata":{"rubocop_version":"1.30.0","ruby_engine":"ruby","ruby_version":"3.0.2","ruby_patchlevel":"107","ruby_platform":"x86_64-darwin19"},"files":[{"path":"test/fixtures/files/Ruby/test_app.rb","offenses":[]}],"summary":{"offense_count":0,"target_file_count":1,"inspected_file_count":1}}]'
 
 js:
-  repository_id: 33
+  repository: two
   aasm_state: created

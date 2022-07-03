@@ -14,14 +14,21 @@ p
 
 h2.my-3
   = t('checks')
+.d-flex.justify-content-between.mb-3
+  .col-2
+    = t('state')
+  .col-3
+    = t('check_passed')
+  .col-6
+    = t('created_at')
 .list-group
   - @checks.each do |check|
     - if check.id.present?
       = link_to repository_check_path(check.repository, check), class: 'text-decoration-none' do
         .d-flex.justify-content-between.list-group-item.list-group-item-action.list-group-item-dark.rounded-3
-          span
+          .col-2
             = check.aasm_state
-          span
+          .col-3
+            = check.passed
+          .col-6
             = check.created_at
-          span
-            = check.updated_at

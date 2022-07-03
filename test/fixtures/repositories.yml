@@ -1,17 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: 22
   user: one
-  link: MyString
-  name: MyString
+  link: 'https://github.com/childish_gambino/rails-project-lvl1'
+  name: rails-project-lvl1
   language: Ruby
   github_id: 1
 
 two:
-  id: 33
   user: two
-  link: MyString
-  name: MyString
+  link: 'https://github.com/super_sebastian/dayjs'
+  name: dayjs
   language: JavaScript
   github_id: 2

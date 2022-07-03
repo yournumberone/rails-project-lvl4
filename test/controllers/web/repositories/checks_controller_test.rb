@@ -17,5 +17,7 @@ class Web::Repositories::ChecksControllerTest < ActionDispatch::IntegrationTest
     assert_difference 'Repository::Check.count' do
       post repository_checks_url(@repository)
     end
+    check = @repository.checks.last
+    assert { [check.aasm_state, check.passed] == ['finished', false] }
   end
 end

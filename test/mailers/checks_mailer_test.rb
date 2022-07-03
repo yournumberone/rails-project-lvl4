@@ -8,7 +8,7 @@ class ChecksMailerTest < ActionMailer::TestCase
       check = repository_checks(:ruby)
       check.fail!
       check.reload
-      check.send_results_email
+      ChecksMailer.with(user: check.repository.user, check: check).linter_results.deliver_now
     end
   end
 end
