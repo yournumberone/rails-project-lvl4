@@ -20,13 +20,13 @@
         = t('commit')
         = link_to @check.commit[(-10..-1)], @check.commit
 
-        div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
-          span
-            = t('inspected_file_count')
-            b = @result['summary']['inspected_file_count']
-          span
-            = t('offense_count')
-            b = @result['summary']['offense_count']
+      div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
+        span
+          = t('inspected_file_count')
+          b = @result.size
+        span
+          = t('offense_count')
+          b = @result.inject(0) { |sum, i| sum + i['messages'].size }
 
     hr
     b.row
@@ -38,18 +38,18 @@
         = t('line_column')
 
     .list-group
-      - @result['files'].each do |f|
-        b.mt-3
-          = f['path'].sub(%r{.*/#{@repository.id}}, '') if f['offenses'].count.positive?
+      - @result.each do |f|
+        b.mt-3.mb-1
+          = f['filePath'].sub(%r{.*/#{@repository.id}}, '')
         br
-        - f['offenses'].each do |of|
+        - f['messages'].each do |of|
           .list-group-item.list-group-item-secondary.list-group-item-action
             .row
               .col-6
                 = of['message']
               .col-4
-                = of['cop_name']
+                = of['ruleId']
               .col-2
-                = of['location']['start_line']
+                = of['line']
                 | :
-                = of['location']['start_column']
+                = of['column']

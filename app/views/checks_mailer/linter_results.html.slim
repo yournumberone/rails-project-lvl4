@@ -5,13 +5,10 @@ body
     - if @check.finished?
       span
         =< t('offense_count')
-        b = @result['summary']['offense_count']
-      br
-        =< t('target_file_count')
-        b = @result['summary']['target_file_count']
+        b = @result.inject(0) { |sum, i| sum + i['messages'].size }
       span
         =< t('inspected_file_count')
-        b = @result['summary']['inspected_file_count']
+        b = @result.size
     - elsif @check.failed?
       h3
         = t('.check_failed', name: @check.repository.name)

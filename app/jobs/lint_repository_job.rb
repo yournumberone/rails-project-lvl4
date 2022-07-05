@@ -13,7 +13,7 @@ class LintRepositoryJob < ApplicationJob
     begin
       ApplicationContainer[:load_repository].download(@repository.id)
       check.result = ApplicationContainer[:linter].check(@repository)
-      check.passed = check.result['summary']['offense_count'].zero?
+      check.passed = (check.result.inject(0) { |sum, i| sum + i['messages'].size }).zero?
       check.commit = last_commit
       check.finish!
     rescue StandardError
