@@ -15,8 +15,9 @@
   - if @check.finished?
 
     .my-3
-      = t('commit')
-      = link_to @check.commit[(-10..-1)], @check.commit
+      - if @check.commit.present?
+        = t('commit')
+        = link_to @check.commit[(-10..-1)], @check.commit
 
     div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
       span
