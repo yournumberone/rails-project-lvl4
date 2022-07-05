@@ -26,8 +26,7 @@
         span
           = t('offense_count')
           b = @result.inject(0) { |sum, i| sum + i['messages'].size }
-
-    hr
+  hr
     b.row
       .col-6
         = t('message')
