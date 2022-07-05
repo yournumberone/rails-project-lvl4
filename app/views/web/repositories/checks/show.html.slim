@@ -22,7 +22,7 @@
       div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
         span
           = t('inspected_file_count')
-          b = @result.size
+          b = @result&.size
         span
           = t('offense_count')
           b = @result.inject(0) { |sum, i| sum + i['messages']&.size }
