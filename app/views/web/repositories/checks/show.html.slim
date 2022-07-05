@@ -23,7 +23,7 @@
     div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
       span
         = t('inspected_file_count')
-        = puts @result['summary']
+        = puts @result
         b = @result['summary']['inspected_file_count']
       span
         = t('offense_count')
