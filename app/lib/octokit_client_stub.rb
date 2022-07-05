@@ -15,6 +15,10 @@ class OctokitClientStub
     ''
   end
 
+  def commits(_id, _branch)
+    [{ html_url: 'https://blabla.test' }]
+  end
+
   def repo(_id)
     JSON.parse File.read(Rails.root.join('test/fixtures/files/response.json'))
   end

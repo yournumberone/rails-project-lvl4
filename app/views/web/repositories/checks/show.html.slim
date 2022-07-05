@@ -1,58 +1,53 @@
-h4
-  = @check.aasm.human_state
-br
-  b = link_to @repository.name, @repository.link
+  h2
+    b = link_to @repository.name, @repository.link
+  h4.mt-3
+    = t('state')
+    b = @check.aasm.human_state
+    br
+    = t('check_passed')
+    b = @check.passed
+    br
+    = t('created_at')
+    b = @check.created_at
+  br
+  = link_to t('back'), repository_path(@repository), class: 'btn btn-outline-dark'
 
-  div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
-    span
-      = t('inspected_file_count')
-      b = @rubocop.present? ? @rubocop['summary']['inspected_file_count'] : @eslint&.size
-    span
-      = t('offense_count')
-      b = @rubocop.present? ? @rubocop['summary']['offense_count'] : @eslint&.reduce(0) { |sum, i| sum + i['errorCount'] + i['warningCount'] }
+  - if @check.finished?
 
-= link_to t('back'), repository_path(@repository), class: 'btn btn-outline-dark my-3'
-hr
-b.row
-  .col-6
-    = t('message')
-  .col-4
-    = t('rule')
-  .col-2
-    = t('line_column')
+    .my-3
+      = t('commit')
+      = link_to @check.commit[(-10..-1)], @check.commit
 
-.list-group
-  - if @rubocop.present?
-    - @rubocop['files'].each do |f|
-      b.mt-3
-        = f['path'].sub(%r{.*/#{@repository.id}}, '') if f['offenses'].count.positive?
-      br
-      - f['offenses'].each do |of|
-        .list-group-item.list-group-item-secondary.list-group-item-action
-          .row
-            .col-6
-              = of['message']
-            .col-4
-              = of['cop_name']
-            .col-2
-              = of['location']['start_line']
-              | :
-              = of['location']['start_column']
+    div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
+      span
+        = t('inspected_file_count')
+        b = @result['summary']['inspected_file_count']
+      span
+        = t('offense_count')
+        b = @result['summary']['offense_count']
 
-.list-group
-  - if @eslint.present?
-    - @eslint.each do |f|
-      b.mt-3
-        = f['filePath'].sub(%r{.*/#{@repository.id}}, '')
-      br
-      - f['messages'].each do |of|
-        .list-group-item.list-group-item-secondary.list-group-item-action
-          .row
-            .col-6
-              = of['message']
-            .col-4
-              = of['ruleId']
-            .col-2
-              = of['line']
-              | :
-              = of['column']
+    hr
+    b.row
+      .col-6
+        = t('message')
+      .col-4
+        = t('rule')
+      .col-2
+        = t('line_column')
+
+    .list-group
+      - @result['files'].each do |f|
+        b.mt-3
+          = f['path'].sub(%r{.*/#{@repository.id}}, '') if f['offenses'].count.positive?
+        br
+        - f['offenses'].each do |of|
+          .list-group-item.list-group-item-secondary.list-group-item-action
+            .row
+              .col-6
+                = of['message']
+              .col-4
+                = of['cop_name']
+              .col-2
+                = of['location']['start_line']
+                | :
+                = of['location']['start_column']

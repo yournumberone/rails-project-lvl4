@@ -6,14 +6,7 @@ class Web::Repositories::ChecksController < Web::Repositories::ApplicationContro
     authorize @check
 
     @repository = @check.repository
-    return if @check.result.nil?
-
-    case @repository.language
-    when 'Ruby'
-      @rubocop = JSON.parse @check.result
-    when 'JavaScript'
-      @eslint = JSON.parse @check.result
-    end
+    @result = @check.result
   end
 
   def create

@@ -18,6 +18,6 @@ class Web::Repositories::ChecksControllerTest < ActionDispatch::IntegrationTest
       post repository_checks_url(@repository)
     end
     check = @repository.checks.last
-    assert { [check.aasm_state, check.passed] == ['finished', false] }
+    assert { [check.aasm_state, check.passed, check.commit] == ['finished', false, 'https://blabla.test'] }
   end
 end

@@ -2,9 +2,10 @@ h1
   .my-3
     b
       = @repository.name
+
 p
   .my-3
-    = @repository.link
+    = link_to @repository.link if @repository.link.present?
   .my-3
     = t('language')
     b
@@ -17,8 +18,10 @@ h2.my-3
 .d-flex.justify-content-between.mb-3
   .col-2
     = t('state')
-  .col-3
+  .col-2
     = t('check_passed')
+  .col-2
+    = t('commit')
   .col-6
     = t('created_at')
 .list-group
@@ -28,7 +31,9 @@ h2.my-3
         .d-flex.justify-content-between.list-group-item.list-group-item-action.list-group-item-dark.rounded-3
           .col-2
             = check.aasm_state
-          .col-3
+          .col-2
             = check.passed
+          .col-2.text-primary
+            = check.commit[(-10..-1)] if check.commit
           .col-6
             = check.created_at

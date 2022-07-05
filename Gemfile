@@ -24,6 +24,7 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
+gem 'actionpack-action_caching'
 gem 'active_storage_validations'
 gem 'aws-sdk-s3'
 gem 'enumerize'

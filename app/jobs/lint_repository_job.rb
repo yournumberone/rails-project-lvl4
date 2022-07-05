@@ -7,22 +7,24 @@ class LintRepositoryJob < ApplicationJob
     check = Repository::Check.find_by(id: check_id)
     return if check.nil?
 
-    repository = check.repository
+    @repository = check.repository
     check.check!
 
     begin
-      ApplicationContainer[:load_repository].download(repository.id)
-      check.result = ApplicationContainer[:linter].check(repository)
-      case repository.language
-      when 'Ruby'
-        check.passed = JSON.parse(check.result)['summary']['offense_count'].zero?
-      when 'JavaScript'
-        check.passed = JSON.parse(check.result).empty?
-      end
+      ApplicationContainer[:load_repository].download(@repository.id)
+      check.result = ApplicationContainer[:linter].check(@repository)
+      check.passed = check.result['summary']['offense_count'].zero?
+      check.commit = last_commit
       check.finish!
     rescue StandardError
       check.fail!
     end
-    ChecksMailer.with(user: repository.user, check: check).linter_results.deliver_now unless check.passed?
+    ChecksMailer.with(user: @repository.user, check: check).linter_results.deliver_now unless check.passed?
+  end
+
+  def last_commit
+    client = ApplicationContainer[:octokit].new
+    resp = client.commits(@repository.github_id, @repository.default_branch)
+    resp[0].to_h[:html_url]
   end
 end
