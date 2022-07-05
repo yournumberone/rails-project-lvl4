@@ -36,7 +36,7 @@
         = t('line_column')
 
     .list-group
-      - @result.each do |f|
+      - @result&.each do |f|
         b.mt-3.mb-1
           = f['filePath'].sub(%r{.*/#{@repository.id}}, '')
         br
