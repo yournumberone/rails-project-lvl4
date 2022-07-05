@@ -5,7 +5,7 @@ body
     - if @check.finished?
       span
         =< t('offense_count')
-        b = @result.inject(0) { |sum, i| sum + i['messages'].size }
+        b = @result.inject(0) { |sum, i| sum + i['messages']&.size }
       span
         =< t('inspected_file_count')
         b = @result.size
