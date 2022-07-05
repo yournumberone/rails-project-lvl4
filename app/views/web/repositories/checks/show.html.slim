@@ -13,19 +13,19 @@
   = link_to t('back'), repository_path(@repository), class: 'btn btn-outline-dark'
 
   - if @check.finished?
-
     .my-3
       - if @check.commit.present?
         = t('commit')
         = link_to @check.commit[(-10..-1)], @check.commit
 
+  - if @result.present?
       div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
         span
           = t('inspected_file_count')
-          b = @result&.size
+          b = @result.size
         span
           = t('offense_count')
-          b = @result&.inject(0) { |sum, i| sum + i['messages']&.size }
+          b = @result.inject(0) { |sum, i| sum + i['messages'].size }
 
     hr
     b.row
