@@ -31,7 +31,7 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     repository = Repository.find_by(github_id: github_id)
 
     assert_redirected_to repository_url(repository)
-    assert { [repository.language, repository.full_name] == ['Ruby', 'yournumberone/rails-project-lvl2'] }
+    assert { [repository.language, repository.full_name] == ['ruby', 'yournumberone/rails-project-lvl2'] }
   end
 
   test 'destroy repository' do

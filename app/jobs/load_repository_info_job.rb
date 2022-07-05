@@ -9,7 +9,7 @@ class LoadRepositoryInfoJob < ApplicationJob
     client = ApplicationContainer[:octokit].new(access_token: repository.user.token)
     repo = client.repo repository.github_id
     repository.update({ name: repo['name'], full_name: repo['full_name'], link: repo['html_url'],
-                        default_branch: repo['default_branch'], language: repo['language'] || repo['parent']['language'] })
+                        default_branch: repo['default_branch'], language: repo['language'].downcase })
     add_webhook(client, repository.github_id)
   end
 

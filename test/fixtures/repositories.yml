@@ -4,12 +4,12 @@ one:
   user: one
   link: 'https://github.com/childish_gambino/rails-project-lvl1'
   name: rails-project-lvl1
-  language: Ruby
+  language: ruby
   github_id: 1
 
 two:
   user: two
   link: 'https://github.com/super_sebastian/dayjs'
   name: dayjs
-  language: JavaScript
+  language: javascript
   github_id: 2

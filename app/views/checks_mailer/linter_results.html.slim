@@ -2,7 +2,7 @@ body
   h1
     = t('.hey', name: @user.nickname)
   p
-    - if @check.repository.language == 'Ruby' && @check.finished?
+    - if @check.finished?
       span
         =< t('offense_count')
         b = @result['summary']['offense_count']
