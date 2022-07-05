@@ -39,5 +39,5 @@
 yarn-debug.log*
 .yarn-integrity
 .vscode
-.env.local
-.env.test
+.env.development.local
+.env.development.test
