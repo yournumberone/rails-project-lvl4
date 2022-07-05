@@ -20,9 +20,8 @@ class Web::RepositoriesController < ApplicationController
   def new
     @repository = Repository.new
     client = ApplicationContainer[:octokit].new access_token: current_user.token, per_page: 100
-    ids = current_user.repositories.pluck(:github_id)
     @repos = client.repos
-    @repos.delete_if { |r| ids.include?(r['id']) || Repository.language.values.exclude?(r['language']) }
+    @repos.delete_if { |r| Repository.language.values.exclude?(r['language']&.downcase) }
   end
 
   def create
