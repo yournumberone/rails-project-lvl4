@@ -25,7 +25,7 @@
           b = @result.size
         span
           = t('offense_count')
-          b = @result.inject(0) { |sum, i| sum + i['messages'].size }
+          b = @result.inject(0) { |sum, i| sum + i['messages']&.size }
 
     hr
     b.row
