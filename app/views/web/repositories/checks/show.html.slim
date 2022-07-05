@@ -16,12 +16,14 @@
 
     .my-3
       - if @check.commit.present?
+        = puts @check.commit
         = t('commit')
         = link_to @check.commit[(-10..-1)], @check.commit
 
     div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
       span
         = t('inspected_file_count')
+        = puts @result['summary']
         b = @result['summary']['inspected_file_count']
       span
         = t('offense_count')
