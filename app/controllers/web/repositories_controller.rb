@@ -2,8 +2,6 @@
 
 class Web::RepositoriesController < ApplicationController
   before_action :authenticate_user!
-  # too weird idea, but ok
-  caches_action :new, expires_in: 1.day
 
   def index
     @repositories = current_user.repositories
@@ -19,9 +17,10 @@ class Web::RepositoriesController < ApplicationController
 
   def new
     @repository = Repository.new
-    client = ApplicationContainer[:octokit].new access_token: current_user.token, per_page: 100
-    @repos = client.repos
-    @repos.delete_if { |r| Repository.language.values.exclude?(r['language']&.downcase) }
+    @repos = Rails.cache.fetch("repository_form_#{current_user.nickname}", expires_in: 1.day) do
+      client = ApplicationContainer[:octokit].new access_token: current_user.token, per_page: 100
+      client.repos.delete_if { |r| Repository.language.values.exclude?(r['language']&.downcase) }
+    end
   end
 
   def create
