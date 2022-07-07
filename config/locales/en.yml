@@ -1,6 +1,9 @@
 en:
   hello: "Hello world!"
   home_page: Analyze your Github repositories with Rubocop, Eslint.
+  description_new: |
+    Can't you see all your repositories? make sure that this is not a fork, the repository language corresponds to the list of available ones: Ruby, JavaScript.
+    Didn't help? Come back tomorrow, we cache the data for 24 hours.
   language: "Language: "
   rule: 'Rule'
   message: 'Message'
@@ -24,7 +27,7 @@ en:
   permission_denied: Permission denied.
   introduce_yourself: Login please
   app_name: GithubQuality
-  inspected_file_count: 'Inspected file count: '
+  problems_file_count: 'Problems file count: '
   offense_count: 'Offense count: '
   commit: 'Commit: '
   state: 'State: '

@@ -24,7 +24,7 @@ class OctokitClientStub
   end
 
   def repos
-    JSON.parse File.read(Rails.root.join('test/fixtures/files/response.json'))
+    [File.read(Rails.root.join('test/fixtures/files/response.json'))]
   end
 
   def create_hook(*_args)

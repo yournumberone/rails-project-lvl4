@@ -21,11 +21,11 @@
   - if @result.present?
       div class="d-flex justify-content-between mt-3 #{passed_theme(@check.passed?)}"
         span
-          = t('inspected_file_count')
-          b = @result.size
+          = t('problems_file_count')
+          b = @result['problems_file_count']
         span
           = t('offense_count')
-          b = @result.inject(0) { |sum, i| sum + i['messages'].size }
+          b = @result['offense_count']
   hr
     b.row
       .col-6
@@ -34,11 +34,11 @@
         = t('rule')
       .col-2
         = t('line_column')
-
+  - if @result.present?
     .list-group
-      - @result&.each do |f|
+      - @result['files'].each do |f|
         b.mt-3.mb-1
-          = f['filePath'].sub(%r{.*/#{@repository.id}}, '')
+          = f['path']
         br
         - f['messages'].each do |of|
           .list-group-item.list-group-item-secondary.list-group-item-action
@@ -46,8 +46,6 @@
               .col-6
                 = of['message']
               .col-4
-                = of['ruleId']
+                = of['rule']
               .col-2
-                = of['line']
-                | :
-                = of['column']
+                = of['line_column']

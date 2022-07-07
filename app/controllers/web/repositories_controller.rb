@@ -18,13 +18,13 @@ class Web::RepositoriesController < ApplicationController
   def new
     @repository = Repository.new
     @repos = Rails.cache.fetch("repository_form_#{current_user.nickname}", expires_in: 1.day) do
-      client = ApplicationContainer[:octokit].new access_token: current_user.token, per_page: 100
+      client = ApplicationContainer[:octokit].new access_token: current_user.token
       client.repos.delete_if { |r| Repository.language.values.exclude?(r['language']&.downcase) }
     end
   end
 
   def create
-    @repository = current_user.repositories.new(github_id: params[:repository][:github_id])
+    @repository = current_user.repositories.new(repository_params)
     if @repository.save
       LoadRepositoryInfoJob.perform_later(@repository.id)
       redirect_to repository_path(@repository), notice: t('.success')
@@ -43,5 +43,11 @@ class Web::RepositoriesController < ApplicationController
     else
       redirect_to repositories_path, alert: t('.fail')
     end
+  end
+
+  private
+
+  def repository_params
+    params.require(:repository).permit([:github_id])
   end
 end
