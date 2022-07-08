@@ -10,15 +10,15 @@ class LintRepositoryJob < ApplicationJob
     @repository = check.repository
     check.check!
 
-    # begin
-    ApplicationContainer[:linter].download(@repository.id)
-    check.result = ApplicationContainer[:linter].check(@repository)
-    check.passed = check.result['offense_count'].zero?
-    check.commit = last_commit
-    check.finish!
-    # rescue StandardError
-    #   check.fail!
-    # end
+    begin
+      ApplicationContainer[:linter].download(@repository)
+      check.result = ApplicationContainer[:linter].check(@repository)
+      check.passed = check.result['offense_count'].zero?
+      check.commit = last_commit
+      check.finish!
+    rescue StandardError
+      check.fail!
+    end
     ChecksMailer.with(user: @repository.user, check: check).linter_results.deliver_now unless check.passed?
   end
 

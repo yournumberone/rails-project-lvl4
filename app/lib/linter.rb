@@ -16,12 +16,11 @@ class Linter
       end
     end
 
-    def download(id)
-      repository = Repository.find_by(id: id)
-      `rm -rf "#{repository_path(id)}"`
+    def download(repository)
+      `rm -rf "#{repository_path(repository.id)}"`
       begin
         link = "#{repository.link}.git"
-        Git.clone(link, repository_path(id))
+        Git.clone(link, repository_path(repository.id))
       rescue StandardError
         Rails.logger.debug { "Repository load failed \n #{'=' * 80}" }
       end
