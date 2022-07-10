@@ -2,7 +2,6 @@
 
 class Linter
   class << self
-    # convert all linters to eslint style format
     def check(repository)
       case repository.language
       when 'ruby'
