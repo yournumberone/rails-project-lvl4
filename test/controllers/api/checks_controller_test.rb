@@ -7,7 +7,7 @@ class Api::ChecksControllerTest < ActionDispatch::IntegrationTest
       post api_checks_url, params: { 'ref' => 'hook', 'repository' => { 'id' => repository.github_id } }
       assert_response :success
       check = repository.checks.last
-      assert { check.aasm_state == 'finished' }
+      assert { check.finished? }
       assert { check.commit == 'https://blabla.test' }
       assert { check.passed == true }
     end
